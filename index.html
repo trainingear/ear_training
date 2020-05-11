@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<style type="text/css">
+</style>
+    <title>My experiment</title>
+    <script src="jspsych-6.0.2/jspsych.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-audio-keyboard-response.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-audio-slider-response.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-html-slider-response.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-fullscreen.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-survey-text.js"></script>
+    <link href="jspsych-6.0.2/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    
+  </head>
+    <style>
+    body {
+    background-color: #000000;
+    color: #D3D3D3
+  </style>
+  <body></body>
+  <script>
+
+    /* create timeline */
+    var timeline = [];
+timeline.push({
+  type: 'fullscreen',
+  fullscreen_mode: false
+});
+  
+    var bemvindo = {
+      type: "html-keyboard-response",
+      stimulus: 'Pablo gay!',
+      choices: ['spacebar']
+    };
+    timeline.push(bemvindo);
+       
+    /* Treino em loop */
+
+    var test_stimuli = [
+          { son: 'sound/isolado1.wav', data: {test_part: 'test'}},
+          { son: 'sound/isolado2.wav', data: {test_part: 'test'}},
+          { son: 'sound/isolado3.wav', data: {test_part: 'test'}},
+    ];
+    
+    var test = {
+      type: "audio-keyboard-response",
+      stimulus: jsPsych.timelineVariable('son'),
+      choices: jsPsych.NO_KEYS,
+      trial_duration: 11000,
+      response_ends_trial: false,
+      prompt: '<div style="font-size:60px;">Listen...</div>',
+      data: jsPsych.timelineVariable('data'),
+    }
+
+    var responses = {
+      type: 'html-slider-response',
+      stimulus: 'Fala o intervalo ae, bonzao',
+      start: 50,
+      prompt: "Indicate a value and press the spacebar to continue.",
+      trial_duration: 5000,
+      choices: ['spacebar']
+    }
+
+
+/* 
+
+    var if_trial = {
+    type: 'html-keyboard-response',
+    stimulus: '<div style="font-size:60px;">Timed-out!</div><br>See how fast that was?<br>As a reminder, you have to indicate a value<br>and press the spacebar within five seconds.<br> <br>Press the spacebar to try again.',
+    choices: ['spacebar']
+} */
+
+/*     
+    var if_node = {
+      timeline: [if_trial],
+      conditional_function: function(){
+          // get the data from the previous trial,
+          // and check which key was pressed
+          var data = jsPsych.data.get().last(1).values()[0];
+          if(data.response === null){
+              return true;
+          } else {
+              return false;
+          }
+      }
+    } */
+
+    var test_procedure = {
+      timeline: [test, responses],
+      timeline_variables: test_stimuli,
+      repetitions: 1,
+      randomize_order: true
+        }
+  
+timeline.push(test_procedure);    
+
+    /* Treino em loop */
+
+    var cabou = {
+      type: "html-keyboard-response",
+      stimulus: "We have reached the end of the training session.<br>Do you have any questions?",
+      post_trial_gap: 0,
+      choices: ['spacebar']
+    };
+    timeline.push(cabou);
+    
+    /* start the experiment */
+
+    jsPsych.init({
+      timeline: timeline,
+      preload_audio: ['sound/isolado1.wav', 'sound/isolado2.wav', 'sound/isolado3.wav'],
+      on_finish: function(data) {
+      var resultJson = jsPsych.data.get().filter([{trial_type: 'survey-text'}, {trial_type: 'html-slider-response'}, {trial_type: 'audio-keyboard-response'}]).json();
+      }
+    });
+  </script>
+</html>

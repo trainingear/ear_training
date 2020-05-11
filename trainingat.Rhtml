@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="jspsych-6.0.2/jspsych.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-audio-keyboard-response.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-audio-slider-response.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-html-slider-response.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-fullscreen.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-survey-text.js"></script>
+    <script src="/assets/javascripts/jatos.js"></script>
+    <link href="jspsych-6.0.2/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    
+  </head>
+    <style>
+    body {
+    background-color: #000000;
+    color: #D3D3D3
+  </style>
+  <body></body>
+  <script>
+
+    /* create timeline */
+    var timeline = [];
+timeline.push({
+  type: 'fullscreen',
+  fullscreen_mode: true
+});
+    
+    var student_id = {
+    type: "survey-text",
+    questions: [{prompt: "Type in the participant's ID:"}],
+    };
+    timeline.push(student_id);
+    
+    var bemvindo = {
+      type: "html-keyboard-response",
+      stimulus: 'Welcome to the experiment!<br> <br>Press the spacebar to begin.',
+      choices: ['spacebar']
+    };
+    timeline.push(bemvindo);
+    
+    /* survey */
+    
+
+      var instructionss = {
+      type: "html-keyboard-response",
+      stimulus: '<p>In this experiment you are going to estimate the distance between two notes.<br>Indicate on a scale from 1 to 100 how far from each other the notes sound.<br> <br><br> <br>Press the spacebar for a few examples.</p>',
+      choices: ['spacebar'],
+      post_trial_gap: 0
+    };
+    timeline.push(instructionss);
+    
+    /* audio exemplo */
+    
+    var treinotrial = {
+      type: 'audio-keyboard-response',
+      stimulus: 'sound/treino1.wav',
+      prompt: "<p>Listen to this pair of notes...</p>",
+      choices: jsPsych.NO_KEYS,
+      trial_ends_after_audio: true
+};
+    timeline.push(treinotrial);
+    
+    var treinotriaal = {
+      type: "html-keyboard-response",
+      stimulus: 'Let us assume that these two notes are apart by 10 points.<br>You should indicate on the scale a value close to 10.<br> <br><br> <br>Press the spacebar to see the scale.',
+      choices: ['spacebar']
+    };
+    timeline.push(treinotriaal);
+    
+    var explicacao = {
+      type: "html-slider-response",
+      stimulus: 'What is the distance between these notes?<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100',
+      start: 50,
+      prompt: "Indicate a value close to 10 and press the spacebar to continue."
+    };
+    timeline.push(explicacao);   
+    
+    var treinotrial2 = {
+      type: 'audio-keyboard-response',
+      stimulus: 'sound/treino2.wav',
+      prompt: "<p>Listen to this pair of notes...</p>",
+      choices: jsPsych.NO_KEYS,
+      trial_ends_after_audio: true
+};
+    timeline.push(treinotrial2);
+    
+      var instructions22 = {
+      type: "html-keyboard-response",
+      stimulus: '<p>Let us assume that these two notes are apart by 100 points.<br>You should indicate on the scale a value close to 100.<br> <br><br> <br>Press the spacebar to see the scale.</p>',
+      post_trial_gap: 0,
+      choices: ['spacebar']
+    };
+    timeline.push(instructions22);
+    
+            var trial_000 = {
+      type: 'audio-keyboard-response',
+      stimulus: 'sound/isolado1.wav',
+      trial_duration: 0,
+      choices: jsPsych.NO_KEYS,
+      prompt: '&nbsp;'
+};
+    timeline.push(trial_000);
+    
+            var trial_00000 = {
+      type: 'audio-keyboard-response',
+      stimulus: 'sound/isolado1.wav',
+      trial_duration: 0,
+      choices: jsPsych.NO_KEYS,
+      prompt: '&nbsp;'
+};
+    timeline.push(trial_00000);
+    
+            var vamosla = {
+      type: "html-slider-response",
+      stimulus: 'What is the distance between these notes?<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100',
+      start: 50,
+      prompt: "Indicate a value close to 100 and press the spacebar to continue."
+    };
+    timeline.push(vamosla);
+    
+    var treinotrial25 = {
+      type: 'audio-keyboard-response',
+      stimulus: 'sound/treino3.wav',
+      prompt: '<div style="font-size:60px;">To summarize...</div><br>First pair of notes = 10<br>Second pair of notes = 100<br> <br><br>Any pair of notes that is not as close as<br>the first or as far as the second pair would<br>receive a value between 10 and 100.<br> <br>Press the spacebar to continue for a few more examples.'
+};
+    timeline.push(treinotrial25);
+
+
+    /* treino */
+    
+    var trial_1 = {
+      type: 'audio-keyboard-response',
+      stimulus: 'sound/isolado1.wav',
+      trial_duration: 2500,
+      choices: jsPsych.NO_KEYS,
+      prompt: '<div style="font-size:60px;">Listen...</div><br>'
+};
+    timeline.push(trial_1);
+  
+    
+    var trial_22 = {
+      type: 'html-slider-response',
+      stimulus: 'What is the distance between these two notes?<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100',
+      start: 50,
+      prompt: "Indicate a value and press the spacebar to continue."
+};
+    timeline.push(trial_22);
+    
+    var trial_33 = {
+      type: 'audio-keyboard-response',
+      stimulus: 'sound/isolado2.wav',
+      choices: jsPsych.NO_KEYS,
+      trial_duration: 2500,
+      prompt: '<div style="font-size:60px;">Listen...</div><br>'
+};
+    timeline.push(trial_33);
+    
+    var trial_55 = {
+      type: 'html-slider-response',
+      stimulus: 'What is the distance between these two notes?<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100',
+      start: 50,
+      prompt: "Indicate a value and press the spacebar to continue."
+};
+    timeline.push(trial_55);
+
+    var treinotriaaal2 = {
+      type: 'html-keyboard-response',
+      stimulus: '<p>Do  you have any questions?<br> <br>If not, press the spacebar to continue.</p>',
+      choices: ['spacebar']
+};
+    timeline.push(treinotriaaal2);
+    
+  /*Explaining melodic context*/
+    
+    var instructionss5 = {
+      type: "html-keyboard-response",
+      stimulus: "During the experiment each pair of notes will be preceded by a short melody.<br>There will be a pause of one second between the melody and the pair of notes.<br> <br><br> <br>Press the spacebar for two examples.",
+      choices: ['spacebar']
+    };
+    timeline.push(instructionss5);
+    
+    var trial_4 = {
+      type: 'audio-keyboard-response',
+      stimulus: 'sound/atonal_interval4_2.wav',
+      choices: jsPsych.NO_KEYS,
+      trial_duration: 11000,
+      prompt: '<div style="font-size:60px;">Listen...</div><br>'
+};
+    timeline.push(trial_4);
+
+    var responses1 = {
+      type: 'html-slider-response',
+      stimulus: 'What is the distance between these two notes?<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100',
+      start: 50,
+      prompt: "Indicate a value and press the spacebar to continue.",
+};
+    timeline.push(responses1);
+    
+    var trial_5 = {
+      type: 'audio-keyboard-response',
+      stimulus: 'sound/atonal_interval1_1.wav',
+      choices: jsPsych.NO_KEYS,
+      trial_duration: 11000,
+      prompt: '<div style="font-size:60px;">Listen...</div><br>'
+};
+    timeline.push(trial_5);
+
+    var responses2 = {
+      type: 'html-slider-response',
+      stimulus: 'What is the distance between these two notes?<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100',
+      start: 50,
+      prompt: "Indicate a value and press the spacebar to continue.",
+};
+    timeline.push(responses2);
+
+    var instructionss555 = {
+      type: "html-keyboard-response",
+      stimulus: "During the experiment you will only have five seconds<br>to indicate your answer and press the spacebar.<br> <br>Press the spacebar for a few examples.",
+      choices: ['spacebar']
+    };
+    timeline.push(instructionss555);
+    
+    /* Treino em loop */
+
+    var test_stimuli = [
+          { son: 'sound/atonal_interval2_1.wav', data: {test_part: 'test'}},
+          { son: 'sound/atonal_interval5_2.wav', data: {test_part: 'test'}},
+          { son: 'sound/atonal_interval3_1.wav', data: {test_part: 'test'}},
+          { son: 'sound/atonal_interval1_2.wav', data: {test_part: 'test'}},
+          { son: 'sound/atonal_interval7_2.wav', data: {test_part: 'test'}}
+    ];
+    
+    var test = {
+      type: "audio-keyboard-response",
+      stimulus: jsPsych.timelineVariable('son'),
+      choices: jsPsych.NO_KEYS,
+      trial_duration: 11000,
+      response_ends_trial: false,
+      prompt: '<div style="font-size:60px;">Listen...</div>',
+      data: jsPsych.timelineVariable('data'),
+    }
+
+    var responses = {
+      type: 'html-slider-response',
+      stimulus: 'What is the distance between those notes?<br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100',
+      start: 50,
+      prompt: "Indicate a value and press the spacebar to continue.",
+      trial_duration: 5000,
+      choices: ['spacebar']
+    }
+
+    var if_trial = {
+    type: 'html-keyboard-response',
+    stimulus: '<div style="font-size:60px;">Timed-out!</div><br>See how fast that was?<br>As a reminder, you have to indicate a value<br>and press the spacebar within five seconds.<br> <br>Press the spacebar to try again.',
+    choices: ['spacebar']
+}
+    
+    var if_node = {
+      timeline: [if_trial],
+      conditional_function: function(){
+          // get the data from the previous trial,
+          // and check which key was pressed
+          var data = jsPsych.data.get().last(1).values()[0];
+          if(data.response === null){
+              return true;
+          } else {
+              return false;
+          }
+      }
+    }
+
+    var test_procedure = {
+      timeline: [test, responses, if_node],
+      timeline_variables: test_stimuli,
+      repetitions: 1,
+      randomize_order: true
+        }
+  
+timeline.push(test_procedure);    
+
+    /* Treino em loop */
+
+    var cabou = {
+      type: "html-keyboard-response",
+      stimulus: "We have reached the end of the training session.<br>Do you have any questions?",
+      post_trial_gap: 0,
+      choices: ['spacebar']
+    };
+    timeline.push(cabou);
+    
+    /* start the experiment */
+
+jatos.onLoad(function() {
+    jsPsych.init({
+      timeline: timeline,
+      preload_audio: ['sound/atonal_interval1_1.wav', 'sound/atonal_interval1_2.wav', 'sound/atonal_interval2_1.wav', 'sound/atonal_interval2_2.wav', 'sound/atonal_interval3_1.wav', 'sound/atonal_interval3_2.wav', 'sound/atonal_interval4_1.wav', 'sound/atonal_interval4_2.wav','sound/atonal_interval5_1.wav', 'sound/atonal_interval5_2.wav', 'sound/atonal_interval6_1.wav', 'sound/atonal_interval6_2.wav', 'sound/atonal_interval7_1.wav', 'sound/atonal_interval7_2.wav'],
+      on_finish: function(data) {
+      var resultJson = jsPsych.data.get().filter([{trial_type: 'survey-text'}, {trial_type: 'html-slider-response'}, {trial_type: 'audio-keyboard-response'}]).json();
+      jatos.submitResultData(resultJson, jatos.startNextComponent);
+      }
+    });
+});
+  </script>
+</html>
