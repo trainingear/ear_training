@@ -36,9 +36,9 @@ timeline.push({
     /* Treino em loop */
 
     var test_stimuli = [
-          { son: 'sound/isolado1.wav', data: {test_part: 'test'}},
-          { son: 'sound/isolado2.wav', data: {test_part: 'test'}},
-          { son: 'sound/isolado3.wav', data: {test_part: 'test'}},
+          { son: 'sound/isolado1.wav', data: {test_part: 'test', correct_response: '1'}},
+          { son: 'sound/isolado2.wav', data: {test_part: 'test', correct_response: '1'}},
+          { son: 'sound/isolado3.wav', data: {test_part: 'test', correct_response: '1'}},
     ];
     
     var test = {
@@ -46,13 +46,27 @@ timeline.push({
       stimulus: jsPsych.timelineVariable('son'),
       choices: jsPsych.NO_KEYS,
       trial_duration: 5000,
-      choices: ['500 cent', '1000 cent', '700mil cent', 'cent pa carai', 'pablo gay', '4006', '73', '357', '357357', '35735', '500 cent', '1000 cent', '700mil cent', 'cent pa carai', 'pablo gay', '4006', '73', '357', '357357', '35735'],
       prompt: "<p>Vai lá, bonzao.... responde ae</p>",
+      choices: ['500 cent', '1000 cent', '700mil cent', 'cent pa carai', 'pablo gay', '4006', '73', '357', '357357', '35735', '500 cent', '1000 cent', '700mil cent', 'cent pa carai', 'pablo gay', '4006', '73', '357', '357357', '35735'],
       response_ends_trial: true,
       data: jsPsych.timelineVariable('data'),
+      on_finish: function(data) {
+            data.correct = data.button_pressed == data.correct_response;
     }
+}
 
-
+/*Treinando diferenciação*/
+var feedback = {
+        type: 'html-keyboard-response',
+        stimulus: function() {
+            var last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
+            if (last_trial_correct) {
+                return '<font size="5">Certo!<br><br>Aperte enter para continuar</font>';
+            } else {
+                return '<font size="5">Errado.<br><br>Aperte enter para tentar novamente</font>'
+            }
+        }
+    }
 /* 
 
     var if_trial = {
@@ -77,7 +91,7 @@ timeline.push({
     } */
 
     var test_procedure = {
-      timeline: [test],
+      timeline: [test, feedback],
       timeline_variables: test_stimuli,
       repetitions: 10,
       randomize_order: true
