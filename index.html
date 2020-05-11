@@ -36,9 +36,9 @@ timeline.push({
     /* Treino em loop */
 
     var test_stimuli = [
-          { son: 'sound/isolado1.wav', data: {test_part: 'test', correct_responde: 'oi'}},
-          { son: 'sound/isolado2.wav', data: {test_part: 'test', correct_responde: 'oi'}}},
-          { son: 'sound/isolado3.wav', data: {test_part: 'test', correct_responde: 'tchau'}}},
+          { son: 'sound/isolado1.wav', data: {test_part: 'test'}},
+          { son: 'sound/isolado2.wav', data: {test_part: 'test'}},
+          { son: 'sound/isolado3.wav', data: {test_part: 'test'}},
     ];
     
     var test = {
@@ -53,6 +53,14 @@ timeline.push({
       data: jsPsych.timelineVariable('data'),
     }
 
+    var responses = {
+      type: 'html-slider-response',
+      stimulus: 'Fala o intervalo ae, bonzao',
+      start: 50,
+      prompt: "Indicate a value and press the spacebar to continue.",
+      trial_duration: 5000,
+      choices: ['spacebar']
+    }
 
 
 /* 
@@ -79,7 +87,7 @@ timeline.push({
     } */
 
     var test_procedure = {
-      timeline: [test, responses],
+      timeline: [test],
       timeline_variables: test_stimuli,
       repetitions: 10,
       randomize_order: true
