@@ -58,7 +58,8 @@ timeline.push({
 
 /*Treinando diferenciação*/
 var feedback = {
-        type: 'html-keyboard-response',
+        type: 'html-button-response',
+        choices: ['Sou gay e quero continuar'],
         stimulus: function() {
             var last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
             if (last_trial_correct) {
