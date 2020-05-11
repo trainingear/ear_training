@@ -5,7 +5,7 @@
 </style>
     <title>My experiment</title>
     <script src="jspsych-6.0.2/jspsych.js"></script>
-    <script src="jspsych-6.0.2/plugins/jspsych-audio-keyboard-response.js"></script>
+    <script src="jspsych-6.0.2/plugins/jspsych-audio-button-response.js"></script>
     <script src="jspsych-6.0.2/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych-6.0.2/plugins/jspsych-audio-slider-response.js"></script>
     <script src="jspsych-6.0.2/plugins/jspsych-image-keyboard-response.js"></script>
@@ -46,11 +46,13 @@ timeline.push({
     ];
     
     var test = {
-      type: "audio-keyboard-response",
+      type: "audio-button-response",
       stimulus: jsPsych.timelineVariable('son'),
       choices: jsPsych.NO_KEYS,
-      trial_duration: 11000,
-      response_ends_trial: false,
+      trial_duration: 5000,
+      choices: ['500 cent', '1000 cent', '700mil cent', 'cent pa carai', 'pablo gay'],
+      prompt: "<p>Vai lá, bonzao.... responde ae</p>",
+      response_ends_trial: true,
       prompt: '<div style="font-size:60px;">Listen...</div>',
       data: jsPsych.timelineVariable('data'),
     }
